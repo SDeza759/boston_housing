@@ -12188,7 +12188,7 @@ I would say this model successfully captured the variation of the target variabl
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-First, you can't use testing data to train the model. It has to be split for that reason and because you need to be able to check if the model works in the first place before introducing different data. So splitting the model helps to validate the model. Additionally you have to measure the sizes of the training and testing data. Optimizing the size is important to avoid a model with high bias or high variance.</p>
+First, you can't use testing data to train the model. It has to be split for that reason and because you need to be able to check if the model works in the first place before introducing different data. So splitting the model helps to validate the model. Additionally you have to measure the sizes of the training and testing data. Optimizing the size is important to avoid a model with high bias or high variance. If you test the data with the same sample you used to train it then it would be a very good model for just that set of data but would likely not be a good model for predicting new data. The purpose of a testing set is to see how well a model can predict data it has never seen before.</p>
 
 </div>
 </div>
@@ -13823,6 +13823,7 @@ When testing a model, you want to vary the parameters and then see their perform
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
 The k-fold cross validation technique is a way to optimize the cross validation technique. When creating a model you want to use training data to "teach" the model and then testing data to verify that the model works. But it's never good practice to use the testing set to teach the model so we instead add a cross-validation set to test the model and validate that it's a good model. K-fold validation is essentially doing this k times by randomly splitting the data into a training set and a cross-validation set and then calculating the average F1 score or any other metric that best represents the model. GridSearchCV splits the training data. K-fold cross validation can be better than grid search because grid search might test different parameters on a bad model and optimize a bad model. However the k-fold technique uses different variations of the data to optimize the entire model.</p>
+<p>The number of folds is a number k. Each iteration can be randomly split depending on what the tester desires. The final accuracy is calculated by averaging performance metrics such as the accuracy, precision, and F1 metrics of each iteration. The tester would then choose the best of a certain metrics depending on what is expected of the model. Perhaps it is meant to have some bias or some variance because it may be "better to be safe than sorry". If a simple train/test split was used for Grid Search, this could be a bad train/test split as mentioned above and optimizing this bad split by varying the parameters would only optimize a bad model instead of creating the best model.</p>
 
 </div>
 </div>
@@ -14057,7 +14058,11 @@ Predicted selling price for Client 3&#39;s home: $888,720.00
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer:</strong>
-I think these prices are accurate because I do expect Client 3 to have the most expensive house and Client 2 to have the cheapest. All of the prices are within the minimum and maximum values. My answers to <strong>Question 1</strong> are supported by these results.</p>
+I think these prices are accurate because I do expect Client 3 to have the most expensive house and Client 2 to have the cheapest. All of the prices are within the minimum and maximum values. My answers to <strong>Question 1</strong> are supported by these results. I will repeat them below to allow for clarification.</p>
+<p>If RM increased then the MEDV would increase as well because if the average number of rooms among homes in the neighborhood is higher, that could mean the houses are bigger and therefore more expensive.</p>
+<p>If LSTAT increased then MEDV would decrease because the lower class wouldn't be able to afford more expensive homes. If there was a higher concentration of them in a neighborhood, then the houses in that neighborhood are likely withing their price range.</p>
+<p>If PTRATIO increased then MEDV would decrease for multiple reasons. First, a lower student to teacher ratio is considered to be a higher qualioty of education so being in that area would be more expensive. Secondly, in terms of population, if the student to teacher ratio is high, that could be because there are a lot of students living in the area meaning there is a higher concentration of inhabitants in that area therefore houses are likely smaller and prices are lower.</p>
+<p><strong>To summarize:</strong> MEDV and RM have a positive correlation, MEDV and LSAT have a negative correlation, and MEDV and PTRATIO have a negative correlation. The strength of these correlations will likely vary and would require individual regressions as well as multivariable regressions to truly see if they have an significant impact. From the individual regression plots provided by Udacity, it is seen that RM and LSAT have stron correleations with MEDV but PTRATIO is somewhat weaker.</p>
 
 </div>
 </div>
